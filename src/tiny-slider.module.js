@@ -242,7 +242,7 @@ export var tns = function(options) {
       containerHTML = container.outerHTML,
       slideItems = container.children,
       slideCount = slideItems.length,
-      slideItemsCTABtn = getSlidesCTABtn(Array.from(slideItems))
+      slideItemsCTABtn = getSlidesCTABtn(Array.from(slideItems)),
       breakpointZone,
       windowWidth = getWindowWidth(),
       isOn = false;
@@ -746,7 +746,7 @@ export var tns = function(options) {
       container.insertBefore(fragmentBefore, container.firstChild);
       container.appendChild(fragmentAfter);
       slideItems = container.children;
-      slideItemsCTABtn = getSlidesCTABtn(Array.from(slideItems))
+      slideItemsCTABtn = getSlidesCTABtn(Array.from(slideItems));
     }
 
   }
