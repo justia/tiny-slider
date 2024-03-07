@@ -41,7 +41,7 @@ import { addEvents } from './helpers/addEvents.js';
 import { removeEvents } from './helpers/removeEvents.js';
 import { Events } from './helpers/events.js';
 import { jsTransform } from './helpers/jsTransform.js';
-import { getCTABtn } from './helpers/getCTABtn.js';
+import { getSlidesCTABtn } from './helpers/getSlidesCTABtn.js';
 
 export var tns = function(options) {
   options = extend({
@@ -242,7 +242,7 @@ export var tns = function(options) {
       containerHTML = container.outerHTML,
       slideItems = container.children,
       slideCount = slideItems.length,
-      slideItemsCTABtn = getCTABtn(Array.from(slideItems))
+      slideItemsCTABtn = getSlidesCTABtn(Array.from(slideItems))
       breakpointZone,
       windowWidth = getWindowWidth(),
       isOn = false;
@@ -746,7 +746,7 @@ export var tns = function(options) {
       container.insertBefore(fragmentBefore, container.firstChild);
       container.appendChild(fragmentAfter);
       slideItems = container.children;
-      slideItemsCTABtn = getCTABtn(Array.from(slideItems))
+      slideItemsCTABtn = getSlidesCTABtn(Array.from(slideItems))
     }
 
   }
