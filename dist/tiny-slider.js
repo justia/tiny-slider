@@ -472,6 +472,10 @@ function jsTransform(element, attr, prefix, postfix, to, duration, callback) {
   }
 }
 
+function getSlidesCTABtn (slideItems) {
+    return slideItems.map((item) => item.querySelector('a') || false)
+}
+
 // ChildNode.remove
 if(!("remove" in Element.prototype)){
   Element.prototype.remove = function(){
@@ -680,6 +684,7 @@ var tns = function(options) {
       containerHTML = container.outerHTML,
       slideItems = container.children,
       slideCount = slideItems.length,
+      slideItemsCTABtn = getSlidesCTABtn(Array.from(slideItems)),
       breakpointZone,
       windowWidth = getWindowWidth(),
       isOn = false;
@@ -1150,7 +1155,11 @@ var tns = function(options) {
       if (!carousel && animateNormal) { addClass(item, animateNormal); }
       setAttrs(item, {
         'aria-hidden': 'true',
-        'tabindex': '-1'
+        'tabindex': '-1',
+      });
+      slideItemsCTABtn[i] && setAttrs(slideItemsCTABtn[i], {
+        'aria-hidden': 'true',
+        'tabindex': '-1',
       });
     });
 
@@ -1179,6 +1188,7 @@ var tns = function(options) {
       container.insertBefore(fragmentBefore, container.firstChild);
       container.appendChild(fragmentAfter);
       slideItems = container.children;
+      slideItemsCTABtn = getSlidesCTABtn(Array.from(slideItems));
     }
 
   }
@@ -1512,7 +1522,7 @@ var tns = function(options) {
     // == controlsInit ==
     if (hasControls) {
       if (!controlsContainer && (!prevButton || !nextButton)) {
-        outerWrapper.insertAdjacentHTML(getInsertPosition(options.controlsPosition), '<div class="tns-controls" aria-label="Carousel Navigation" tabindex="0"><button type="button" data-controls="prev" tabindex="-1" aria-controls="' + slideId +'">' + controlsText[0] + '</button><button type="button" data-controls="next" tabindex="-1" aria-controls="' + slideId +'">' + controlsText[1] + '</button></div>');
+        outerWrapper.insertAdjacentHTML(getInsertPosition(options.controlsPosition), '<div class="tns-controls" aria-label="Carousel Navigation" tabindex="0"><button type="button" data-controls="prev" aria-label="Previous" tabindex="0" aria-controls="' + slideId +'">' + controlsText[0] + '</button><button type="button" data-controls="next" tabindex="0" aria-controls="' + slideId +'">' + controlsText[1] + '</button></div>');
 
         controlsContainer = outerWrapper.querySelector('.tns-controls');
       }
@@ -2365,6 +2375,7 @@ var tns = function(options) {
         if (hasAttr(item, 'aria-hidden')) {
           removeAttrs(item, ['aria-hidden', 'tabindex']);
           addClass(item, slideActiveClass);
+          slideItemsCTABtn[i] && removeAttrs(slideItemsCTABtn[i], ['aria-hidden', 'tabindex']);
         }
       // hide slides
       } else {
@@ -2374,6 +2385,10 @@ var tns = function(options) {
             'tabindex': '-1'
           });
           removeClass(item, slideActiveClass);
+          slideItemsCTABtn[i] && setAttrs(slideItemsCTABtn[i], {
+            'aria-hidden': 'true',
+            'tabindex': '-1'
+          });
         }
       }
     });
@@ -3210,7 +3225,7 @@ var tns = function(options) {
   }
 
   return {
-    version: '2.9.10',
+    version: '2.9.11',
     getInfo: info,
     events: events,
     goTo: goTo,
