@@ -488,6 +488,22 @@ function jsTransform(element, attr, prefix, postfix, to, duration, callback) {
 }
 
 /**
+ * Retrieves an object where each key is a slide element and the value is an array of anchor elements (`<a>` tags) within that slide.
+ *
+ * This function iterates through an array of slide elements and maps each slide
+ * to its corresponding array of anchor elements.
+ *
+ * @param {HTMLElement[]} slides - An array of slide elements.
+ * @returns {Object<HTMLElement, HTMLAnchorElement[]>} An object mapping each slide to its array of anchor elements.
+ */
+
+function getSlidesAnchors(slides) {
+  return slides.reduce((acc, slide, idx) => {
+    acc[idx] = getSlideAnchors(slide);
+    return acc;
+  }, {});
+}
+/**
  * Retrieves a flat array of anchor elements (`<a>` tags) from a single slide.
  *
  * @param {HTMLElement} slide - A slide element.
@@ -762,6 +778,7 @@ var tns = function (options) {
       containerHTML = container.outerHTML,
       slideItems = container.children,
       slideCount = slideItems.length,
+      slideAnchors = getSlidesAnchors(Array.from(slideItems)),
       breakpointZone,
       windowWidth = getWindowWidth(),
       isOn = false;
@@ -1293,8 +1310,7 @@ var tns = function (options) {
         'aria-hidden': 'true',
         'tabindex': '-1'
       });
-      const anchors = getSlideAnchors(item);
-      disableAnchors(anchors);
+      disableAnchors(slideAnchors[i]);
     }); // ## clone slides
     // carousel: n + slides + n
     // gallery:      slides + n
@@ -1321,6 +1337,7 @@ var tns = function (options) {
       container.insertBefore(fragmentBefore, container.firstChild);
       container.appendChild(fragmentAfter);
       slideItems = container.children;
+      slideAnchors = getSlidesAnchors(Array.from(slideItems));
     }
   }
 
@@ -2724,13 +2741,12 @@ var tns = function (options) {
         start = range[0],
         end = range[1];
     forEach(slideItems, function (item, i) {
-      const anchors = getSlideAnchors(item); // show slides
-
+      // show slides
       if (i >= start && i <= end) {
         if (hasAttr(item, 'aria-hidden')) {
           removeAttrs(item, ['aria-hidden', 'tabindex']);
           addClass(item, slideActiveClass);
-          enableAnchors(anchors);
+          enableAnchors(slideAnchors[i]);
         } // hide slides
 
       } else {
@@ -2740,7 +2756,7 @@ var tns = function (options) {
             'tabindex': '-1'
           });
           removeClass(item, slideActiveClass);
-          disableAnchors(anchors);
+          disableAnchors(slideAnchors[i]);
         }
       }
     });

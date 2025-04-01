@@ -41,7 +41,7 @@ import { addEvents } from './helpers/addEvents.js';
 import { removeEvents } from './helpers/removeEvents.js';
 import { Events } from './helpers/events.js';
 import { jsTransform } from './helpers/jsTransform.js';
-import { disableAnchors, enableAnchors, getSlideAnchors } from './helpers/getSlidesCTABtn.js';
+import { disableAnchors, enableAnchors, getSlidesAnchors } from './helpers/getSlidesCTABtn.js';
 
 export var tns = function(options) {
   options = extend({
@@ -242,6 +242,7 @@ export var tns = function(options) {
       containerHTML = container.outerHTML,
       slideItems = container.children,
       slideCount = slideItems.length,
+      slideAnchors = getSlidesAnchors(Array.from(slideItems)),
       breakpointZone,
       windowWidth = getWindowWidth(),
       isOn = false;
@@ -714,8 +715,7 @@ export var tns = function(options) {
         'aria-hidden': 'true',
         'tabindex': '-1',
       });
-      const anchors = getSlideAnchors(item);
-      disableAnchors(anchors);
+      disableAnchors(slideAnchors[i]);
     });
 
     // ## clone slides
@@ -743,6 +743,7 @@ export var tns = function(options) {
       container.insertBefore(fragmentBefore, container.firstChild);
       container.appendChild(fragmentAfter);
       slideItems = container.children;
+      slideAnchors = getSlidesAnchors(Array.from(slideItems));
     }
 
   }
@@ -1924,13 +1925,12 @@ export var tns = function(options) {
         end = range[1];
 
     forEach(slideItems, function(item, i) {
-      const anchors = getSlideAnchors(item);
       // show slides
       if (i >= start && i <= end) {
         if (hasAttr(item, 'aria-hidden')) {
           removeAttrs(item, ['aria-hidden', 'tabindex']);
           addClass(item, slideActiveClass);
-          enableAnchors(anchors);
+          enableAnchors(slideAnchors[i]);
         }
       // hide slides
       } else {
@@ -1940,7 +1940,7 @@ export var tns = function(options) {
             'tabindex': '-1'
           });
           removeClass(item, slideActiveClass);
-          disableAnchors(anchors);
+          disableAnchors(slideAnchors[i]);
         }
       }
     });
