@@ -75,28 +75,27 @@ optimizeDeps: {
 
 ## Release
 
-### 1. Update the NPM Version
+### 1. Update the Package Version
 
-Once all your changes are ready to be released, run:
+Do a _Search and Replace_ to replace the current version in several files:
 
-```bash
-npm version [SEMVER_STRING] -m "[CHANGES_SUMMARY]"
-```
+- `package-lock.json`
+- `package.json`
+- `bower.json`
+- `src/tiny-slider.scss`
+- `src/tiny-slider.js`
+- `src/tiny-slider.module.js`
 
-Where:
+You may need to run `npm run build` again.
+Commit the changes with the message: `chore: update version to [NEW_VERSION]`.
 
-- **[SEMVER_STRING]:** is a valid semver string (`patch`, `minor`, `major`, `prepatch`, `preminor`, `premajor`, `prerelease`).
-- **[CHANGES_SUMMARY]:** what's new on this release?
+### 2. Create a Pull Request
 
-### Example
+Nothing special here. 
 
-```bash
-npm version patch -m "Enables and disables multiple anchor elements in slides."
-```
+### 3. Merge to Master
 
-See more in [NPM's doc](https://docs.npmjs.com/cli/v8/commands/npm-version#description).
-
-### 2. Publish to NPM
+### 4. Publish to NPM
 
 > [!IMPORTANT]
 > You'll need to be logged into the Justia NPM account ([details here](https://github.com/justia/front-end-projects?tab=readme-ov-file#login-)).
