@@ -2,6 +2,22 @@ import { setAttrs } from './setAttrs';
 import { removeAttrs } from './removeAttrs';
 
 /**
+ * Retrieves an object where each key is a slide element and the value is an array of anchor elements (`<a>` tags) within that slide.
+ *
+ * This function iterates through an array of slide elements and maps each slide
+ * to its corresponding array of anchor elements.
+ *
+ * @param {HTMLElement[]} slides - An array of slide elements.
+ * @returns {Object<HTMLElement, HTMLAnchorElement[]>} An object mapping each slide to its array of anchor elements.
+ */
+export function getSlidesAnchors(slides) {
+    return slides.reduce((acc, slide, idx) => {
+        acc[idx] = getSlideAnchors(slide);
+        return acc;
+    }, {});
+}
+
+/**
  * Retrieves a flat array of anchor elements (`<a>` tags) from a single slide.
  *
  * @param {HTMLElement} slide - A slide element.
