@@ -52,7 +52,7 @@ If you're using Vite on your other project, your changes may not be reflected co
 The files in the `node_modules/` folder may be ok, but Vite uses a cache. To override it, run:
 `vite --force`, which forces the optimizer to ignore the cache and re-bundle.
 
-> [!WARN]  
+> [!WARNING]  
 > You can't watch your changes comfortably :( You have to run `vite --force` every time you want to see your changes reflected. 
 
 ### JS Modules
@@ -71,4 +71,38 @@ Or... if you're also using **Vite** in your other project, add:
 optimizeDeps: {
     include: ['@justia/tiny-slider']
   }
+```
+
+## Release
+
+### 1. Update the NPM Version
+
+Once all your changes are ready to be released, run:
+
+```bash
+npm version [SEMVER_STRING] -m "[CHANGES_SUMMARY]"
+```
+
+Where:
+
+- **[SEMVER_STRING]:** is a valid semver string (`patch`, `minor`, `major`, `prepatch`, `preminor`, `premajor`, `prerelease`).
+- **[CHANGES_SUMMARY]:** what's new on this release?
+
+### Example
+
+```bash
+npm version patch -m "Enables and disables multiple anchor elements in slides."
+```
+
+See more in [NPM's doc](https://docs.npmjs.com/cli/v8/commands/npm-version#description).
+
+### 2. Publish to NPM
+
+> [!IMPORTANT]
+> You'll need to be logged into the Justia NPM account ([details here](https://github.com/justia/front-end-projects?tab=readme-ov-file#login-)).
+
+Run:
+
+```bash
+npm publish
 ```
