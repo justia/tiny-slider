@@ -41,7 +41,7 @@ import { addEvents } from './helpers/addEvents.js';
 import { removeEvents } from './helpers/removeEvents.js';
 import { Events } from './helpers/events.js';
 import { jsTransform } from './helpers/jsTransform.js';
-import { getSlidesCTABtn } from './helpers/getSlidesCTABtn.js';
+import { disableAnchors, enableAnchors, getSlidesAnchors } from './helpers/getSlidesCTABtn.js';
 
 export var tns = function(options) {
   options = extend({
@@ -242,7 +242,7 @@ export var tns = function(options) {
       containerHTML = container.outerHTML,
       slideItems = container.children,
       slideCount = slideItems.length,
-      slideItemsCTABtn = getSlidesCTABtn(Array.from(slideItems)),
+      slideAnchors = getSlidesAnchors(Array.from(slideItems)),
       breakpointZone,
       windowWidth = getWindowWidth(),
       isOn = false;
@@ -715,10 +715,7 @@ export var tns = function(options) {
         'aria-hidden': 'true',
         'tabindex': '-1',
       });
-      slideItemsCTABtn[i] && setAttrs(slideItemsCTABtn[i], {
-        'aria-hidden': 'true',
-        'tabindex': '-1',
-      })
+      disableAnchors(slideAnchors[i]);
     });
 
     // ## clone slides
@@ -746,7 +743,7 @@ export var tns = function(options) {
       container.insertBefore(fragmentBefore, container.firstChild);
       container.appendChild(fragmentAfter);
       slideItems = container.children;
-      slideItemsCTABtn = getSlidesCTABtn(Array.from(slideItems));
+      slideAnchors = getSlidesAnchors(Array.from(slideItems));
     }
 
   }
@@ -1933,7 +1930,7 @@ export var tns = function(options) {
         if (hasAttr(item, 'aria-hidden')) {
           removeAttrs(item, ['aria-hidden', 'tabindex']);
           addClass(item, slideActiveClass);
-          slideItemsCTABtn[i] && removeAttrs(slideItemsCTABtn[i], ['aria-hidden', 'tabindex']);
+          enableAnchors(slideAnchors[i]);
         }
       // hide slides
       } else {
@@ -1943,10 +1940,7 @@ export var tns = function(options) {
             'tabindex': '-1'
           });
           removeClass(item, slideActiveClass);
-          slideItemsCTABtn[i] && setAttrs(slideItemsCTABtn[i], {
-            'aria-hidden': 'true',
-            'tabindex': '-1'
-          });
+          disableAnchors(slideAnchors[i]);
         }
       }
     });
@@ -2783,7 +2777,7 @@ export var tns = function(options) {
   }
 
   return {
-    version: '2.9.11',
+    version: '2.9.12',
     getInfo: info,
     events: events,
     goTo: goTo,
