@@ -411,6 +411,7 @@ To get the slider information, you can either use the `getInfo()` method or subs
                     pages: pages, // visible nav indexes
               pagesCached: pagesCached,
                     sheet: sheet,
+                isPlaying: animating, // indicates the play state
                     event: e || {}, // event object if available
 };
 ```

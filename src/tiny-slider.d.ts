@@ -279,6 +279,7 @@ export interface TinySliderInfo {
     hasControls: boolean;
     index: number;
     indexCached: number;
+    isPlaying: boolean;
     items: number;
     navContainer?: HTMLElement;
     navCurrentIndex?: number;
@@ -346,7 +347,6 @@ export interface TinySliderInstance {
      *
      */
     isOn: boolean;
-
 
     /**
      * Manually adjust slider height when autoHeight is true.

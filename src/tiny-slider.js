@@ -2772,6 +2772,7 @@ export var tns = function(options) {
       pagesCached: pagesCached,
       sheet: sheet,
       isOn: isOn,
+      isPlaying: animating,
       event: e || {},
     };
   }
