@@ -2,7 +2,7 @@
 
 # Tiny Slider 2
 
-![version](https://img.shields.io/badge/Version-2.9.12-green.svg)
+![version](https://img.shields.io/badge/Version-2.10.0-green.svg)
 
 Tiny slider for all purposes, inspired by [Owl Carousel](https://owlcarousel2.github.io/OwlCarousel2/).
 
