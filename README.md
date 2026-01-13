@@ -1,6 +1,8 @@
+<!-- markdownlint-disable MD007 MD033 MD040 -->
+
 # Tiny Slider 2
-[![](https://data.jsdelivr.com/v1/package/npm/tiny-slider/badge?style=rounded)](https://www.jsdelivr.com/package/npm/tiny-slider)
-![version](https://img.shields.io/badge/Version-2.9.4-green.svg)
+
+![version](https://img.shields.io/badge/Version-2.9.12-green.svg)
 
 Tiny slider for all purposes, inspired by [Owl Carousel](https://owlcarousel2.github.io/OwlCarousel2/).
 
@@ -11,43 +13,53 @@ Tiny slider for all purposes, inspired by [Owl Carousel](https://owlcarousel2.gi
 [Tests for mobile browsers](http://ganlanyuan.github.io/tiny-slider/test/tests-mobile.html)  (running on Android Browser 4.2+)
  -->
 
-*Previous versions*:
-[v1](https://github.com/ganlanyuan/tiny-slider/tree/v1),
-[v0](https://github.com/ganlanyuan/tiny-slider/tree/v0)
+*Previous versions*: [v1](https://github.com/ganlanyuan/tiny-slider/tree/v1), [v0](https://github.com/ganlanyuan/tiny-slider/tree/v0)
 
 **Warning**: tiny-slider works with static content and it works in the browser only. If the HTML is loaded dynamically, make sure to call `tns()` after its loading.
 
 ## Contents
-+ [What's new](#whats-new)
-+ [Features](#features)
-+ [Install](#install)
-+ [Usage](#usage)
-+ [Options](#options)
-+ [Responsive options](#responsive-options)
-+ [Methods](#methods)
-+ [Custom Events](#custom-events)
-+ [Fallback](#fallback)
-+ [Browser Support](#browser-support)
-+ [Support](#support)
-+ [License](#license)
+
+- [Tiny Slider 2](#tiny-slider-2)
+  - [Contents](#contents)
+  - [What's new](#whats-new)
+  - [Features](#features)
+  - [Install](#install)
+  - [Usage](#usage)
+    - [1. Add CSS](#1-add-css)
+    - [2. Add markup](#2-add-markup)
+    - [3. Call tns()](#3-call-tns)
+  - [Options](#options)
+  - [Responsive options](#responsive-options)
+  - [Methods](#methods)
+    - [`getInfo`](#getinfo)
+    - [`goTo`](#goto)
+    - [`play`](#play)
+    - [`pause`](#pause)
+    - [`updateSliderHeight`](#updatesliderheight)
+    - [`destroy`](#destroy)
+    - [`rebuild`](#rebuild)
+  - [Custom Events](#custom-events)
+    - [Fallback](#fallback)
+  - [Browser Support](#browser-support)
+    - [Desktop](#desktop)
+    - [Mobile](#mobile)
+  - [Support](#support)
+  - [License](#license)
 
 ## What's new
+
 - Using `%` instead of `px` (No more recalculation of each slide width on window resize)
-- Using CSS Mediaqueries if supported
+- Using CSS media queries if supported
 - Save browser capability values to [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), so they will not be recheck again until browser get upgraded or user clear the localStorage manually.
 - More options available for `responsive`. (Start from [v2.1.0](https://github.com/ganlanyuan/tiny-slider/releases/tag/v2.1.0), [issue 53](https://github.com/ganlanyuan/tiny-slider/issues/53))
-- Insert `controls` and `nav` _before_ slider instead of after ([issue 4](https://github.com/ganlanyuan/tiny-slider/issues/4))
+- Insert `controls` and `nav` *before* slider instead of after ([issue 4](https://github.com/ganlanyuan/tiny-slider/issues/4))
 - Move `autoplay` button out of `nav` container. (Start from [v2.1.0](https://github.com/ganlanyuan/tiny-slider/releases/tag/v2.1.0))
 - Some selector changes in [`tiny-slider.scss`](https://github.com/ganlanyuan/tiny-slider/blob/master/src/tiny-slider.scss)
-
-*Migrating to v2*
-- Update `controls` and / or `nav` styles based on their position changes.
-- Update the [`slider selectors`](https://github.com/ganlanyuan/tiny-slider/blob/master/src/tiny-slider.scss) accordingly if used in your CSS or JS.
-- Update styles related to `autoplay` button.
 
 *[top↑](#tiny-slider-2)*
 
 ## Features
+
 <table class="table">
   <thead>
     <tr>
@@ -209,16 +221,19 @@ Tiny slider for all purposes, inspired by [Owl Carousel](https://owlcarousel2.gi
 *[top↑](#tiny-slider-2)*
 
 ## Install
-`bower install tiny-slider` or `npm install tiny-slider`
+
+`npm install @justia/tiny-slider`
 
 ## Usage
-#### 1. Add CSS (and IE8 polyfills if needed)
+
+### 1. Add CSS
+
 ```html
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
-<!--[if (lt IE 9)]><script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/min/tiny-slider.helper.ie8.js"></script><![endif]-->
 ```
 
-#### 2. Add markup
+### 2. Add markup
+
 ```html
 <div class="my-slider">
   <div></div>
@@ -228,20 +243,22 @@ Tiny slider for all purposes, inspired by [Owl Carousel](https://owlcarousel2.gi
 <!-- or ul.my-slider > li -->
 ```
 
-#### 3. Call tns()
+### 3. Call tns()
+
 Option A: Add tiny-slider.js to your page:
+
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
-<!-- NOTE: prior to v2.2.1 tiny-slider.js need to be in <body> -->
 ```
 
 Option B: Import `tns` via `webpack` or `rollup`:
+
 ```javascript
-// yourScript.js
-import { tns } from "./node_modules/tiny-slider/src/tiny-slider"
+import { tns } from '@justia/tiny-slider/src/tiny-slider';
 ```
 
 Option C: Import `tns` directly start from v2.8.2
+
 ```html
 <script type="module">
   import {tns} from './src/tiny-slider.js';
@@ -254,6 +271,7 @@ Option C: Import `tns` directly start from v2.8.2
   });
   </script>
 ```
+
 *[top↑](#tiny-slider-2)*
 
 ## Options
@@ -261,7 +279,7 @@ Option C: Import `tns` directly start from v2.8.2
 | Option | Type | Description |
 | --- | --- | --- |
 | `container` | Node \| String | Default: `'.slider'`. <br> The slider container element or selector. |
-| `mode` | "carousel" \| "gallery" | Default: "carousel". <br> Controls animation behaviour. <br> With `carousel` everything slides to the side, while `gallery` uses fade animations and changes all slides at once. |
+| `mode` | "carousel" \| "gallery" | Default: "carousel". <br> Controls animation behavior. <br> With `carousel` everything slides to the side, while `gallery` uses fade animations and changes all slides at once. |
 | `axis` | "horizontal" \| "vertical" | Default: "horizontal". <br> The axis of the slider. |
 | `items` | positive number | Default: 1. <br> Number of slides being displayed in the viewport. <br> If slides less or equal than `items`, the slider won't be initialized. |
 | `gutter` | positive integer | Default: 0. <br> Space between slides (in "px"). |
@@ -271,7 +289,7 @@ Option C: Import `tns` directly start from v2.8.2
 | `viewportMax` (was `fixedWidthViewportWidth`) | positive integer \| false | Default: false. <br> Maximum viewport width for `fixedWidth`/`autoWidth`. |
 | `slideBy` | positive number \| "page" | Default: 1. <br> Number of slides going on one "click". |
 | `center` (v2.9.2+) | Boolean | Default: false. <br> Center the active slide in the viewport. |
-| `controls` | Boolean | Default: true. <br> Controls the display and functionalities of `controls` components (prev/next buttons). If `true`, display the `controls` and add all functionalities. <br>For better accessibility, when a prev/next button is focused, user will be able to control the slider using left/right arrow keys.|
+| `controls` | Boolean | Default: true. <br> Controls the display and functionalities of `controls` components (prev/next buttons). If `true`, display the `controls` and add all functionalities. <br>For better accessibility, when a prev/next button is focused, user will be able to control the slider using left/right arrow keys. |
 | `controlsPosition` | "top" \| "bottom" | Default: "top". <br> Controls `controls` position. |
 | `controlsText` | (Text \| Markup) Array | Default: ["prev", "next"]. <br> Text or markup in the prev/next buttons. |
 | `controlsContainer` | Node \| String \| false | Default: false. <br> The container element/selector around the prev/next buttons. <br> `controlsContainer` must have at least 2 child elements. |
@@ -291,7 +309,7 @@ Option C: Import `tns` directly start from v2.8.2
 | `autoplayHoverPause` | Boolean | Default: false. <br> Stops sliding on mouseover. |
 | `autoplayButton` | Node \| String \| false | Default: false. <br> The customized autoplay start/stop button or selector. |
 | `autoplayButtonOutput` | Boolean | Default: true. <br> Output `autoplayButton` markup when `autoplay` is true but a customized `autoplayButton` is not provided. |
-| `autoplayResetOnVisibility` | Boolean | Default: true. <br> Pauses the sliding when the page is invisible and resumes it when the page become visiable again. ([Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API)) |
+| `autoplayResetOnVisibility` | Boolean | Default: true. <br> Pauses the sliding when the page is invisible and resumes it when the page become visible again. ([Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API)) |
 | `animateIn` | String | Default: "tns-fadeIn". <br> Name of intro animation `class`. |
 | `animateOut` | String | Default: "tns-fadeOut". <br> Name of outro animation `class`. |
 | `animateNormal` | String | Default: "tns-normal". <br> Name of default animation `class`. |
@@ -300,7 +318,7 @@ Option C: Import `tns` directly start from v2.8.2
 | `rewind` | Boolean | Default: false. <br> Moves to the opposite edge when reaching the first or last slide. |
 | `autoHeight` | Boolean | Default: false. <br> Height of slider container changes according to each slide's height. |
 | `responsive` | Object: { <br>&emsp;breakpoint: { <br>&emsp;&emsp;key: value<br>&emsp;} <br>} \| false | Default: false. <br>Breakpoint: Integer.<br>Defines options for different viewport widths (see [Responsive Options](#responsive-options)). <br> |
-| `lazyload` | Boolean | Default: false. <br> Enables lazyloading images that are currently not viewed, thus saving bandwidth (see [demo](http://ganlanyuan.github.io/tiny-slider/demo/#lazyload_wrapper)). <br> NOTE: <br>+ Class `.tns-lazy-img` need to be set on every image you want to lazyload if option `lazyloadSelector` is not specified; <br>+ `data-src` attribute with its value of the real image `src` is required; <br>+ `width` attribute for every image is required for `autoWidth` slider. |
+| `lazyload` | Boolean | Default: false. <br> Enables lazy loading images that are currently not viewed, thus saving bandwidth (see [demo](http://ganlanyuan.github.io/tiny-slider/demo/#lazyload_wrapper)). <br> NOTE: <br>+ Class `.tns-lazy-img` need to be set on every image you want to lazyload if option `lazyloadSelector` is not specified; <br>+ `data-src` attribute with its value of the real image `src` is required; <br>+ `width` attribute for every image is required for `autoWidth` slider. |
 | `lazyloadSelector` (v2.9.1+) | String | Default: `'.tns-lazy-img'`. <br> The CSS selector for lazyload images. |
 | `touch` | Boolean | Default: true. <br> Activates input detection for touch devices. |
 | `mouseDrag` | Boolean | Default: false. <br> Changing slides by dragging them. |
@@ -312,41 +330,22 @@ Option C: Import `tns` directly start from v2.8.2
 | `disable` | Boolean | Default: false. <br> Disable slider. |
 | `startIndex` | positive integer | Default: 0. <br> The initial `index` of the slider. |
 | `onInit` | Function \| false | Default: false. <br> Callback to be run on initialization. |
-| `useLocalStorage` | Boolean | Default: true. <br> Save browser capability variables to [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) and without detecting them everytime the slider runs if set to `true`. |
-| `nonce`| String / false | Default: false. <br> Optional Nonce attribute for inline style tag to allow slider usage without `unsafe-inline Content Security Policy source. |
+| `useLocalStorage` | Boolean | Default: true. <br> Save browser capability variables to [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) and without detecting them every time the slider runs if set to `true`. |
+| `nonce` | String / false | Default: false. <br> Optional Nonce attribute for inline style tag to allow slider usage without `unsafe-inline Content Security Policy source. |
 
-NOTE:
-Prior to v2.0.2, options "container", "controlsContainer", "navContainer" and "autoplayButton" still need to be DOM elements.
-E.g. container: document.querySelector('.my-slider')
+> [!NOTE]
+> Prior to v2.0.2, options "container", "controlsContainer", "navContainer" and "autoplayButton" still need to be DOM elements.
+> E.g. container: document.querySelector('.my-slider')
 
 *[top↑](#tiny-slider-2)*
 
 ## Responsive options
-The following options can be redefined in `responsive` field:
-`startIndex`,
-`items`,
-`slideBy`,
-`speed`,
-`autoHeight`,
-`fixedWidth`,
-`edgePadding`,
-`gutter`,
-`center`,
-`controls`,
-`controlsText`,
-`nav`,
-`autoplay`,
-`autoplayHoverPause`,
-`autoplayResetOnVisibility`,
-`autoplayText`,
-`autoplayTimeout`,
-`touch`,
-`mouseDrag`,
-`arrowKeys`,
-`disable`
+
+The following options can be redefined in `responsive` field: `startIndex`, `items`, `slideBy`, `speed`, `autoHeight`, `fixedWidth`, `edgePadding`, `gutter`, `center`, `controls`, `controlsText`, `nav`, `autoplay`, `autoplayHoverPause`, `autoplayResetOnVisibility`, `autoplayText`, `autoplayTimeout`, `touch`, `mouseDrag`, `arrowKeys`, `disable`.
+
 ```javascript
 <script>
-  var slider = tns({
+  const slider = tns({
     container: '.my-slider',
     items: 1,
     responsive: {
@@ -365,13 +364,18 @@ The following options can be redefined in `responsive` field:
   });
 </script>
 ```
-NOTE:
-+ The breakpoints behave like `(min-width: breakpoint)` in CSS, so an undefined option will be inherited from previous small breakpoints.
-+ `fixedWidth` can only be changed to other positive integers. It can't be changed to negative integer, 0 or other data type.
+
+> [!NOTE]
+>
+> - The breakpoints behave like `(min-width: breakpoint)` in CSS, so an undefined option will be inherited from previous small breakpoints.
+> - `fixedWidth` can only be changed to other positive integers. It can't be changed to negative integer, 0 or other data type.
+
 *[top↑](#tiny-slider-2)*
 
 ## Methods
+
 The slider returns a slider object with some properties and methods once it's initialized:
+
 ```javascript
 {
   version: version, // tiny-slider version
@@ -387,7 +391,9 @@ The slider returns a slider object with some properties and methods once it's in
   rebuild: rebuild()
 }
 ```
+
 To get the slider information, you can either use the `getInfo()` method or subscribe to an Event. Both return an Object:
+
 ```javascript
 {
                 container: container, // slider container
@@ -416,12 +422,14 @@ To get the slider information, you can either use the `getInfo()` method or subs
 };
 ```
 
-#### getInfo
+### `getInfo`
+
 Get slider information.
+
 ```javascript
 slider.getInfo();
 
-document.querySelector('.next-button').onclick = function () {
+document.querySelector('.next-button').addEventListener('click', () => {
   // get slider info
   var info = slider.getInfo(),
       indexPrev = info.indexCached,
@@ -430,11 +438,13 @@ document.querySelector('.next-button').onclick = function () {
   // update style based on index
   info.slideItems[indexPrev].classList.remove('active');
   info.slideItems[indexCurrent].classList.add('active');
-};
+}, false);
 ```
 
-#### goTo
+### `goTo`
+
 Go to specific slide by number or keywords.
+
 ```javascript
 slider.goTo(3);
 slider.goTo('prev');
@@ -442,46 +452,58 @@ slider.goTo('next');
 slider.goTo('first');
 slider.goTo('last');
 
-document.querySelector('.goto-button').onclick = function () {
+document.querySelector('.goto-button').addEventListener('click', () => {
   slider.goTo(3);
-};
+}, false);
 ```
 
-#### play
+### `play`
+
 Programmatically start slider autoplay when `autoplay: true`.
+
 ```javascript
 slider.play();
 ```
 
-#### pause
+### `pause`
+
 Programmatically stop slider autoplay when `autoplay: true`.
+
 ```javascript
 slider.pause();
 ```
 
-#### updateSliderHeight
+### `updateSliderHeight`
+
 Manually adjust slider height when `autoHeight` is `true`.
+
 ```javascript
 slider.updateSliderHeight();
 ```
 
-#### destroy
+### `destroy`
+
 Destroy the slider.
+
 ```javascript
 slider.destroy();
 ```
 
-#### rebuild
+### `rebuild`
+
 Rebuild the slider after destroy.
+
 ```javascript
 slider = slider.rebuild();
 // this method returns a new slider Object with the same options with the original slider
 ```
 
 ## Custom Events
+
 Available events include: `indexChanged`, `transitionStart`, `transitionEnd`, `newBreakpointStart`, `newBreakpointEnd`, `touchStart`, `touchMove`, `touchEnd`, `dragStart`, `dragMove` and `dragEnd`.
+
 ```javascript
-var customizedFunction = function (info, eventName) {
+const customizedFunction = (info, eventName) => {
   // direct access to info object
   console.log(info.event.type, info.container.id);
 }
@@ -492,36 +514,46 @@ slider.events.on('transitionEnd', customizedFunction);
 // remove function binding
 slider.events.off('transitionEnd', customizedFunction);
 ```
+
 *[top↑](#tiny-slider-2)*
 
-#### Fallback
+### Fallback
+
 ```css
 .no-js .your-slider { overflow-x: auto; }
 .no-js .your-slider > div { float: none; }
 ```
 
 ## Browser Support
-**Desktop:**
+
+### Desktop
+
+```
 Firefox 8+ ✓
-Chrome 15+ ✓  (Should works on _Chrome 4-14_ as well, but I couldn't test it.)
+Chrome 15+ ✓  (Should works on *Chrome 4-14* as well, but I couldn't test it.)
 Safari 4+ ✓
 Opera 12.1+ ✓
 IE 8+ ✓
+```
 
-**Mobile:**
+### Mobile
+
+```
 Android Browser 4.2+ ✓
 Chrome Mobile 63+ ✓
 Firefox Mobile 28+ ✓
-Maxthon 4+ ✓
+```
 
 ## Support
+
 <a href="https://www.browserstack.com/" target="_blank"><img src="logos/browserstack.svg" alt="Browser Stack" width="170"></a><br>Live tests and Automated Tests <br>
 <br>
 <a href="https://crossbrowsertesting.com/" target="_blank"><img src="logos/cbt.svg" width="230" alt="Cross Browser Testing"></a><br>Live tests, Screenshots and Automated Tests <br>
 <br>
 [Cdnjs](https://cdnjs.com/)
 <br>
-Images on demo page are from https://unsplash.com/.
+Images on demo page are from <https://unsplash.com/>.
 
 ## License
+
 This project is available under the [MIT](https://opensource.org/licenses/mit-license.php) license.
