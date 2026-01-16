@@ -262,7 +262,7 @@ export interface TinySliderSettings extends CommonOptions {
      * Callback to be run on initialization.
      * @defaultValue false
      */
-    onInit?: () => void | false;
+    onInit?: (info: TinySliderInfo) => void | false;
     /**
      * Save browser capability variables to localStorage and without detecting them everytime the slider runs if set to true.
      * @defaultValue true
@@ -279,6 +279,8 @@ export interface TinySliderInfo {
     hasControls: boolean;
     index: number;
     indexCached: number;
+    displayIndex: number;
+    isPlaying: boolean;
     items: number;
     navContainer?: HTMLElement;
     navCurrentIndex?: number;
@@ -346,7 +348,6 @@ export interface TinySliderInstance {
      *
      */
     isOn: boolean;
-
 
     /**
      * Manually adjust slider height when autoHeight is true.

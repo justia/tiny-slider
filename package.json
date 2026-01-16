@@ -1,6 +1,6 @@
 {
   "name": "@justia/tiny-slider",
-  "version": "2.9.12",
+  "version": "2.10.0",
   "description": "Vanilla javascript slider for all purposes, inspired by Owl Carousel.",
   "keywords": [
     "slider",

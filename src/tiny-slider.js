@@ -2476,7 +2476,9 @@ export var tns = function(options) {
 
     if (keyIndex >= 0) {
       if (keyIndex === 0) {
-        if (!prevButton.disabled) { onControlsClick(e, -1); }
+        if (!prevButton.disabled) {
+          onControlsClick(e, -1);
+        }
       } else if (!nextButton.disabled) {
         onControlsClick(e, 1);
       }
@@ -2565,9 +2567,15 @@ export var tns = function(options) {
       lastPosition.y = $.clientY;
 
       if (carousel) {
-        if (!rafIndex) { rafIndex = raf(function(){ panUpdate(e); }); }
+        if (!rafIndex) {
+          rafIndex = raf(function(){
+            panUpdate(e);
+          });
+        }
       } else {
-        if (moveDirectionExpected === '?') { moveDirectionExpected = getMoveDirectionExpected(); }
+        if (moveDirectionExpected === '?') {
+          moveDirectionExpected = getMoveDirectionExpected();
+        }
         if (moveDirectionExpected) { preventScroll = true; }
       }
 
@@ -2583,7 +2591,11 @@ export var tns = function(options) {
       return;
     }
     caf(rafIndex);
-    if (panStart) { rafIndex = raf(function(){ panUpdate(e); }); }
+    if (panStart) {
+      rafIndex = raf(function() {
+        panUpdate(e);
+      });
+    }
 
     if (moveDirectionExpected === '?') { moveDirectionExpected = getMoveDirectionExpected(); }
     if (moveDirectionExpected) {
@@ -2667,9 +2679,15 @@ export var tns = function(options) {
     }
 
     // reset
-    if (options.preventScrollOnTouch === 'auto') { preventScroll = false; }
-    if (swipeAngle) { moveDirectionExpected = '?'; }
-    if (autoplay && !animating) { setAutoplayTimer(); }
+    if (options.preventScrollOnTouch === 'auto') {
+      preventScroll = false;
+    }
+    if (swipeAngle) {
+      moveDirectionExpected = '?';
+    }
+    if (autoplay && !animating) {
+      setAutoplayTimer();
+    }
   }
 
   function setSlidesHeight(wrapper, height = '') {
@@ -2772,12 +2790,13 @@ export var tns = function(options) {
       pagesCached: pagesCached,
       sheet: sheet,
       isOn: isOn,
+      isPlaying: Boolean(animating || autoplayHoverPaused || autoplayVisibilityPaused),
       event: e || {},
     };
   }
 
   return {
-    version: '2.9.12',
+    version: '2.10.0',
     getInfo: info,
     events: events,
     goTo: goTo,

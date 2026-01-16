@@ -8,6 +8,7 @@
 *.log
 /*.html
 *.sketch
+repomix*
 
 /.codekit-cache/
 /bower_components/
@@ -15,3 +16,4 @@
 /test/reports/
 /tests_output/
 .idea/
+.vscode/
